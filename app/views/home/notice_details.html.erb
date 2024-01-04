@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-md-10">
+    <h3><b>Notice Details</b></h3>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-10">
+    <div class="tab-pane fade show active" id="view" role="tabpanel" aria-labelledby="view-tab">
+      </br>
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <%= @nObj.content.html_safe %>
+          <div class="dropdown-divider"></div>
+          <small class="text-muted"><i class="fas fa-clock" style="color: mediumvioletred"></i>&nbsp;&nbsp;<span class="time_string_span"><%= @nObj.published_at.strftime('%FT%T%:z') %></span></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="card border-danger mb-3">
+      <div class="card-header"><i class="fas fa-heart" style="color: coral"></i>&nbsp;&nbsp;Likes (<%= @nObj.post_likes.size %>)</div>
+      <div class="card-body text-danger" style="min-height: 500px;max-height: 500px;overflow: scroll">
+        <% @nObj.post_likes.each do |pl| %>
+          <div class="alert alert-light" style="border: solid 1px;margin-bottom: 10px">
+            <i class="fas fa-user" style="color: sienna"></i>&nbsp;&nbsp;<%= pl.user.first_name + ' ' + pl.user.last_name %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card border-info mb-3">
+      <div class="card-header"><i class="fas fa-comment" style="color: purple"></i>&nbsp;&nbsp;Comments (<%= @nObj.notice_comments.size %>)</div>
+      <div class="card-body" style="min-height: 500px;max-height: 500px;overflow: scroll">
+        <% @nObj.notice_comments.each do |nc| %>
+          <div class="tab-pane fade show active" id="view" role="tabpanel" aria-labelledby="view-tab">
+            <div class="card shadow mb-4">
+              <div class="card-body">
+                <%= nc.comment %>
+                <div class="dropdown-divider"></div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <small class="text-muted"><i class="fas fa-user" style="color: orange"></i>&nbsp;&nbsp;<%= nc.user.first_name + ' ' + nc.user.last_name %></small>
+                  </div>
+                  <div class="col-md-6">
+                    <small class="text-muted"><i class="fas fa-clock" style="color: mediumvioletred"></i>&nbsp;&nbsp;<span class="time_string_span"><%= nc.created_at.strftime('%FT%T%:z') %></span></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <%= image_tag 'macaw.svg', width: '30', height: '30', class: 'd-inline-block align-top' %>
+      Birdy Board
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <% if !current_user.nil? && current_user.is_admin? %>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="nav-item dropdown">
+            <a class="dropdown-toggle nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admin
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/admin/list_users">Users</a></li>
+              <li><a class="dropdown-item" href="/admin/list_notices">Notices</a></li>
+            </div>
+          </ul>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  <div class="nav-buttons">
+    <% if current_user.nil? %>
+      <div style="display: flex">
+        <%= link_to new_user_session_path, class: 'btn btn-sm btn-outline-dark' do %>Login<% end %>
+        &nbsp;/&nbsp;
+        <%= link_to new_user_registration_path, class: 'btn btn-sm btn-outline-dark' do %>Register<% end %>
+      </div>
+    <% else %>
+      <ul class="nav-item dropdown">
+        <a class="dropdown-toggle btn btn-sm btn-outline-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= icon('file-person', class: 'text-dark') + ' ' + current_user.first_name + " " + current_user.last_name %>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link dropdown-item' %>
+          <div class="dropdown-divider"></div>
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link dropdown-item' %>
+        </div>
+      </ul>
+    <% end %>
+  </div>
+</nav>

@@ -1,0 +1,6 @@
+<p>Hello <%= @resource.first_name + ' ' + @resource.last_name %>,</p>
+<p>Welcome to <b>Birdy Board</b>, a platform that enables you to keep updated with feeds from your institution.</p>
+
+<p>You can confirm your account email through the link below:</p>
+
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>

@@ -1,0 +1,75 @@
+{
+  "application.js": "/packs/js/application-72fcad8f610cf8796b7a.js",
+  "application.js.map": "/packs/js/application-72fcad8f610cf8796b7a.js.map",
+  "dataTables.js": "/packs/js/dataTables-050009250cda5efcaff4.js",
+  "dataTables.js.map": "/packs/js/dataTables-050009250cda5efcaff4.js.map",
+  "entrypoints": {
+    "application": {
+      "js": [
+        "/packs/js/application-72fcad8f610cf8796b7a.js"
+      ],
+      "js.map": [
+        "/packs/js/application-72fcad8f610cf8796b7a.js.map"
+      ]
+    },
+    "dataTables": {
+      "js": [
+        "/packs/js/dataTables-050009250cda5efcaff4.js"
+      ],
+      "js.map": [
+        "/packs/js/dataTables-050009250cda5efcaff4.js.map"
+      ]
+    },
+    "home_actions": {
+      "js": [
+        "/packs/js/home_actions-918748dcb8303e243541.js"
+      ],
+      "js.map": [
+        "/packs/js/home_actions-918748dcb8303e243541.js.map"
+      ]
+    },
+    "jquery": {
+      "js": [
+        "/packs/js/jquery-81bf15b926fa627511cd.js"
+      ],
+      "js.map": [
+        "/packs/js/jquery-81bf15b926fa627511cd.js.map"
+      ]
+    },
+    "list_notices": {
+      "js": [
+        "/packs/js/list_notices-1029e9258d8758c9164b.js"
+      ],
+      "js.map": [
+        "/packs/js/list_notices-1029e9258d8758c9164b.js.map"
+      ]
+    },
+    "list_users": {
+      "js": [
+        "/packs/js/list_users-e007c31c66d431a6f36a.js"
+      ],
+      "js.map": [
+        "/packs/js/list_users-e007c31c66d431a6f36a.js.map"
+      ]
+    },
+    "utils": {
+      "js": [
+        "/packs/js/utils-984d0cb01eac75a0eb02.js"
+      ],
+      "js.map": [
+        "/packs/js/utils-984d0cb01eac75a0eb02.js.map"
+      ]
+    }
+  },
+  "home_actions.js": "/packs/js/home_actions-918748dcb8303e243541.js",
+  "home_actions.js.map": "/packs/js/home_actions-918748dcb8303e243541.js.map",
+  "jquery.js": "/packs/js/jquery-81bf15b926fa627511cd.js",
+  "jquery.js.map": "/packs/js/jquery-81bf15b926fa627511cd.js.map",
+  "list_notices.js": "/packs/js/list_notices-1029e9258d8758c9164b.js",
+  "list_notices.js.map": "/packs/js/list_notices-1029e9258d8758c9164b.js.map",
+  "list_users.js": "/packs/js/list_users-e007c31c66d431a6f36a.js",
+  "list_users.js.map": "/packs/js/list_users-e007c31c66d431a6f36a.js.map",
+  "media/images/notice-home.jpg": "/packs/media/images/notice-home-dd44b45f.jpg",
+  "utils.js": "/packs/js/utils-984d0cb01eac75a0eb02.js",
+  "utils.js.map": "/packs/js/utils-984d0cb01eac75a0eb02.js.map"
+}

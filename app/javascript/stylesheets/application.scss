@@ -1,0 +1,15 @@
+@import "home";
+@import "~bootstrap/scss/bootstrap";
+@import "toastr";
+@import '@fortawesome/fontawesome-free';
+@import "datatables.net-bs4/css/dataTables.bootstrap4.css";
+.dataTables_filter {
+  float: right;
+}
+
+.notice_content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 20px;
+}

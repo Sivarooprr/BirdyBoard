@@ -1,0 +1,103 @@
+<div class="row">
+  <div class="col-md-10">
+    <h3><b>Notice - View / Edit</b></h3>
+    <p class="card-text"><small class="text-muted">Note - Notices which are marked as public will be visible to all users.</small></p>
+  </div>
+</div>
+</br>
+<div class="row">
+    <div class="col-md-10">
+        <ul class="nav nav-tabs" id="notice_tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="view-tab" data-toggle="tab" href="#view" role="tab" aria-controls="view" aria-selected="true">Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="edit-tab" data-toggle="tab" href="#edit" role="tab" aria-controls="edit" aria-selected="false">Edit</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="notice_tabs_content">
+            <div class="tab-pane fade show active" id="view" role="tabpanel" aria-labelledby="view-tab">
+                </br>
+                <div class="card shadow mb-4">
+                  <div class="card-body">
+                    <%= @nObj.content.html_safe %>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <% if @nObj.published? %>
+                            <p>Published - <i class="fas fa-check-circle" style="color: green"></i></p>
+                        <% else %>
+                            <p>Published - <i class="fas fa-times-circle" style="color: red"></i></p>
+                        <% end %>
+                    </div>
+                    <div class="col-md-4">
+                        <p>Published At - <span class="<%= if @nObj.published_at then 'time_string' end %>" style="font-weight:bold"><%= if @nObj.published_at then @nObj.published_at.strftime('%FT%T%:z') end%></span></p>
+                    </div>
+                    <div class="col-md-2" style="display:flex">
+                        <% if @nObj.is_public? %>
+                            <p>Public - <i class="fas fa-check-circle" style="color: green"></i></p>
+                        <% else %>
+                            <p>Public - <i class="fas fa-times-circle" style="color: red"></i></p>
+                        <% end %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4" style="display:flex">
+                        <p>Created At - <span class="<%= if @nObj.created_at then 'time_string' end %>" style="font-weight:bold"><%= @nObj.created_at.strftime('%FT%T%:z') %></span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>Updated At - <span class="<%= if @nObj.updated_at then 'time_string' end %>" style="font-weight:bold"><%= @nObj.updated_at.strftime('%FT%T%:z') %></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="edit" role="tabpanel" aria-labelledby="edit-tab">
+                </br>
+                <%= form_for(@nObj, url: "/admin/notice/#{@nObj.id}" , remote: true, method: :post) do |f| %>
+                    <div class="actions" style="float:right;">
+                        <%= f.submit "Update", class: 'btn btn-sm btn-outline-dark' %>
+                    </div>
+                    </br>
+                    <div class="field">
+                        <%= f.label 'Content', class: 'form-label' %><br />
+                        <%= f.text_area :content, rows: 10, maxlength: 2000, autofocus: true, class: 'form-control', required: true, oninput: "previewNotice()", id: 'contentBox' %>
+                    </div>
+                    </br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="field">
+                                <%= f.label 'Publish', class: 'form-label' %>&nbsp;&nbsp;
+                                <%= f.check_box :published %>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="field">
+                                <%= f.label 'Public', class: 'form-label' %>&nbsp;&nbsp;
+                                <%= f.check_box :is_public %>
+                            </div>
+                        </div>
+                    </div>
+                    </br>
+                    <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10 text-center">
+                        <p style="font-weight:bold">** Preview **</p>
+                    </div>
+                    <div class="col-md-1"></div>
+                    </div>
+                    </br>
+                    <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <div class="card shadow mb-4">
+                        <div class="card-body" id="previewBox"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    </div>
+                    </br>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

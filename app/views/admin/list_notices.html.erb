@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-10">
+    <h3><b>Notices</b></h3>
+    <p class="card-text"><small class="text-muted">Note - List of notices added with the portal.</small></p>
+  </div>
+  <div class="col-md-2">
+    <a class="btn btn-outline-success btn-sm" style="float:right" href="/admin/new_notice">
+        <%= icon('journal-plus') + ' ' + 'Create New' %>
+    </a>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    </br>
+    <div class="card shadow mb-4">
+      <div class="card-body" id="uTableCard">
+        <div class="table-responsive">
+          <table id="notice_table" class="table table-bordered table-sm" width="100%" cellspacing="0"></table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%= javascript_pack_tag 'list_notices' %>

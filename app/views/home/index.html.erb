@@ -1,0 +1,112 @@
+<div class="home-landing1">
+  <div class="row">
+    <div class="col-md-8">
+      <% if @notices.size == 0 %>
+        <div class="alert alert-dark" role="alert">
+          <h4 class="alert-heading">Well done!</h4>
+          <p>It's very nice of you to keep an eye on our updates.</p>
+          <p>Also it's important to keep updated with the latest news as well.</p>
+          <p>As of now we don't have anything to share public.</p>
+          <hr>
+          <p class="mb-0">Please note, you will be able to see private messages only after login.</p>
+        </div>
+      <% else %>
+        <% @notices.each do |n| %>
+          <div class="card">
+            <div class="card-body">
+              <%= n.content.html_safe %>
+            </div>
+            <div class="card-footer">
+              <div class="row">
+                <div class="col-sm-4 text-muted">
+                  <button type="button" class="btn btn-outline btn-sm">
+                    <i class="fas fa-clock" style="color: mediumvioletred"></i>&nbsp;&nbsp;<span class="time-string-ago"><%= n.published_at.strftime('%FT%T%:z') %></span>
+                  </button>
+                </div>
+                <div class="col-sm-2 text-muted">
+                  <% if n.is_public? %>
+                    <button type="button" class="btn btn-outline btn-sm"><i class="fas fa-eye" style="color: green"></i>&nbsp;&nbsp;Public</button>
+                  <% else %>
+                    <button type="button" class="btn btn-outline btn-sm"><i class="fas fa-eye-slash" style="color: blue"></i>&nbsp;&nbsp;Private</button>
+                  <% end %>
+                </div>
+                <div class="col-sm-2 text-muted">
+                  <% if user_signed_in? %>
+                    <div id="notice_likes_<%= n.id %>">
+                      <% if n.post_likes.where(:user_id => current_user.id).size > 0 %>
+                        <button type="button" class="btn btn-outline btn-sm" onclick="noticeAction('unlike',<%= n.id %>)"><i class="fas fa-heart" style="color: red"></i>&nbsp;&nbsp;<%= n.post_likes.size %></button>
+                      <% else %>
+                        <button type="button" class="btn btn-outline btn-sm" onclick="noticeAction('like',<%= n.id %>)"><i class="far fa-heart" style="color: red"></i>&nbsp;&nbsp;<%= n.post_likes.size %></button>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="col-sm-2 text-muted">
+                  <% if user_signed_in? %>
+                    <div id="notice_comments_<%= n.id %>">
+                      <% if n.notice_comments.where(:user_id => current_user.id).size > 0 %>
+                        <button type="button" class="btn btn-outline btn-sm" onclick="noticeAction('comment',<%= n.id %>)"><i class="fas fa-comments" style="color: purple"></i>&nbsp;&nbsp;<%= n.notice_comments.size %></button>
+                      <% else %>
+                        <button type="button" class="btn btn-outline btn-sm" onclick="noticeAction('comment',<%= n.id %>)"><i class="far fa-comments" style="color: purple"></i>&nbsp;&nbsp;<%= n.notice_comments.size %></button>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="col-sm-2 text-muted">
+                  <% if user_signed_in? %>
+                    <button type="button" class="btn btn-outline btn-sm" onclick="window.location = '/notice/<%= n.id %>'">Details&nbsp;&nbsp;<i class="fas fa-arrow-right" style="color: green"></i></button>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+        <% end %>
+      <% end %>
+      <% if user_signed_in? && @notices.size == 0 && @summary_data[:filtered] %>
+        <div class="alert alert-warning text-center" role="alert">
+          No records available for the applied filter
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-4">
+      <% if user_signed_in? %>
+        <div class="card border-secondary mb-3" style="max-width: 18rem;">
+          <div class="card-header"><small style="font-weight: bold">Summary</small></div>
+          <div class="card-body text-secondary">
+            <small class="card-text"><i class="fas fa-clipboard" style="color: peru"></i>&nbsp;&nbsp;<a href="/">Total Records</a> - <%= @summary_data[:total_notices] %></small><br>
+            <small class="card-text"><i class="fas fa-clipboard" style="color: green"></i>&nbsp;&nbsp;<a href="/?filter=public">Public Records</a> - <%= @summary_data[:public_notices] %></small><br>
+            <div class="dropdown-divider"></div>
+            <small class="card-text" id="liked_records"><i class="fas fa-heart" style="color: coral"></i>&nbsp;&nbsp;<a href="/?filter=liked">Liked Records</a> - <%= PostLike.where(:user_id => current_user.id).size %></small><br>
+            <small class="card-text" id="commented_records"><i class="fas fa-comment" style="color: purple"></i>&nbsp;&nbsp;<a href="/?filter=commented">Commented Records</a> - <%= NoticeComment.where(:user_id => current_user.id).select(:notice_id).distinct.size %></small><br>
+            <small class="card-text"><i class="fas fa-user-lock" style="color: coral"></i>&nbsp;&nbsp;Last Login At - <span class="time-string-ago"><%= current_user.last_sign_in_at.strftime('%FT%T%:z') %></span></small>
+          </div>
+        </div>
+      <% end %>
+      <%= image_tag 'post_img.svg', width: 300, height: 400 %>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="addComment" tabindex="-1" role="dialog" aria-labelledby="commentModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <b class="modal-title" id="commentModalTitle">Enter the comment below</b>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="commentCloseBtn1">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="addCommentBody">
+        <textarea id="commentInput" rows="5" style="width: 100%"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="commentCloseBtn">Close</button>
+        <button type="button" class="btn btn-primary" id="commentPostButton">Post Comment</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<%= javascript_pack_tag 'home_actions' %>

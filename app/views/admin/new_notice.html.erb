@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-md-10">
+    <h3><b>Notice - Create New</b></h3>
+    <p class="card-text"><small class="text-muted">Note - Notices which are marked as public will be visible to all users.</small></p>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    </br>
+    <div class="card shadow mb-4">
+      <div class="card-body" id="uTableCard">
+        <%= form_for(Notice.new, url: '/admin/new_notice' , remote: true, method: :post) do |f| %>
+            <div class="field">
+                <%= f.label 'Content', class: 'form-label' %><br />
+                <%= f.text_area :content, rows: 10, maxlength: 2000, class: 'form-control', required: true, oninput: "previewNotice()", id: 'contentBox' %>
+            </div>
+            </br>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="field">
+                        <%= f.label 'Publish', class: 'form-label' %>&nbsp;&nbsp;
+                        <%= f.check_box :published %>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="field">
+                        <%= f.label 'Public', class: 'form-label' %>&nbsp;&nbsp;
+                        <%= f.check_box :is_public %>
+                    </div>
+                </div>
+            </div>
+            </br>
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-10 text-center">
+                <p style="font-weight:bold">** Preview **</p>
+              </div>
+              <div class="col-md-1"></div>
+            </div>
+            </br>
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-10">
+                <div class="card shadow mb-4">
+                  <div class="card-body" id="previewBox"></div>
+                </div>
+              </div>
+              <div class="col-md-1"></div>
+            </div>
+            </br>
+            <div class="actions">
+                <%= f.submit "Save", class: 'btn btn-sm btn-outline-dark' %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
