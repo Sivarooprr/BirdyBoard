@@ -1,5 +1,5 @@
 # Birdy Board   
-
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Sivarooprr/BirdyBoard/blob/main/LICENSE)
 This is an academic project written on RoR framework.
 It's an online notice board for institutions where management can share the updates to both public and private group of audience.
 
